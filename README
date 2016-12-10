@@ -1,0 +1,4 @@
+Deploying:
+    
+    Run ./GenerateConfig.py to generate a config file at the location specified in RankedChoiceRestaurants/settings.py
+    Run ./manage.py collectstatic to copy all static files into the directory specified in GenerateConfig.py
