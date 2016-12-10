@@ -1,0 +1,111 @@
+/*********  Common  *********/
+#poll-title { text-align: center }
+
+
+
+/*********  Voting page  *********/
+/* One-off formatting for specific IDs */
+#error-msg { color: red; }
+#how-to { display: none; border: thin solid black; }
+
+/* Question box formatting */
+.poll_question {
+    padding: 1em; border: thin solid black;
+    border-bottom-style: none; /* prevent double-thick borders between q's */
+}
+.poll_question:last-of-type {
+    border-bottom-style: solid; /* fix-up for double-thick q border stopper */
+}
+
+.question_description { border-bottom: thin solid black; }
+
+/* Answer box formatting */
+.poll_answer {
+    padding: 1em; border: thin solid black;
+    overflow: scroll; /* let users scroll to buttons when screen is small */
+    border-bottom-style: none; /* prevent double-thick borders between a's */
+}
+.poll_answer:last-of-type {
+    border-bottom-style: solid; /* fix-up for double-thick a border stopper */
+}
+.poll_answer > div {
+    display: inline-block; /* float any div that's child to the answer box */
+    vertical-align: middle;
+}
+
+/* Make certain things visible only when they're on the ballot,
+ * and make other things visible only when they're off the ballot,
+ * but make all things invisible if they're on a moving answer */
+.question_selected .only_when_sel,
+    .question_unselected .only_when_unsel {
+        display: inline;
+}
+.question_unselected .only_when_sel,
+    .question_selected .only_when_unsel {
+        display: none; 
+}
+.answer_moving .only_when_sel,
+    .answer_moving .only_when_unsel {
+        display: none;
+}
+
+/* Formatting for the answer-maneuvering buttons */
+.button_box {
+    word-spacing: 1em; /* make some non-clickable space between buttons */
+    white-space: nowrap; /* don't wrap the buttons, prefer enabling scroll */
+}
+
+.poll_move_up, .poll_move_down, .poll_move_remove, .poll_move_add,
+.poll_move_small {
+    font-family: helvetica;
+    font-weight: bold;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+/* This is separate so the how-to instructions can have small "buttons" */
+.poll_move_up, .poll_move_down, .poll_move_remove, .poll_move_add {
+    font-size: 5em;
+    word-spacing: 1em;
+}
+
+/* Hide some buttons when items are at top/bottom of list */
+.poll_answer:first-of-type .poll_move_up {
+    visibility: hidden;
+}
+.poll_answer:last-of-type .poll_move_down {
+    visibility: hidden;
+}
+
+/* Formatting for the answer ranking box */
+.poll_answer_rank {
+    font-size: 5em;
+    font-family: monospace;
+    font-style: italic;
+    font-weight: bold;
+    padding: 10px;
+    margin: 10px;
+    border: thin solid black;
+}
+
+
+/* Formatting for the submit button - make it look like other page buttons */
+input[type=submit] {
+	color: inherit;
+	background-color: inherit;
+    border: thin solid black;
+    cursor: pointer;
+
+    font-size: 2.5em;
+	border-radius: .5em;
+    padding: .25em;
+	margin: 10px;
+}
+form {
+    text-align: center;
+}
+
+
+
+/*********  Results Page  *********/
+#results { display: none; border: thin solid black; }

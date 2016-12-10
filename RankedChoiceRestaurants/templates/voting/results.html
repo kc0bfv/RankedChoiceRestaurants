@@ -1,0 +1,65 @@
+{% extends "voting/base.html" %}
+
+{% load customtags %}
+
+{% block body %}
+    <h1 id="poll-title">{{ poll.title }} - Results</h1>
+    {% if thanks %}<h2 id="thank-you">Thank you for voting!</h2>{% endif %}
+
+    {% for question, question_winners in winners.items %}
+        <div class="winner_question">
+            <h2>{{ question.desc }}</h2>
+            <div class="winner_answer">
+            {% for winner in question_winners %}
+                {{ winner.desc }}
+            {% empty %}
+                Unfortunately, not enough results for a winner
+            {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    <h3><a href="javascript: toggle_visible_block('results');" title="Display winner calculations">Show Winner Calculation Information</a></h3>
+    <div id="results">
+        {% if poll.vote_count_method == poll.INSTANT_RUNOFF %}
+            {% for question, rounds in process_info.items %}
+                <div class="result_question">
+                    <h2>{{ question.desc }}</h2>
+                    {% for round in rounds %}
+                        <div class="result_round">
+                            <h3>Round {{ forloop.counter }}</h3>
+                            {% for answer, votes in round.items %}
+                                <div class="result_answer">
+                                    {{ answer.desc }} - {{ votes }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% elif poll.vote_count_method == poll.CONDORCET %}
+            {% for question, pc_data in process_info.items %}
+                {% with ans_order=pc_data.keys %}
+                <table class="result_question">
+                    <caption>{{ question.desc }}</caption>
+                    <tr>
+                        <th></th>
+                        {% for col in ans_order %}
+                            <th scope="col">{{ col.desc }}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for row in ans_order %}
+                        <tr>
+                            <th scope="row">{{ row.desc }}</th>
+                            {% for col in ans_order %}
+                                <td>
+                                    {{ pc_data|returnitem:row|returnitem:col }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+                {% endwith %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

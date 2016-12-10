@@ -1,0 +1,6 @@
+RankedChoiceRestaurants/settings.py
+db.sqlite3
+*.swp
+__pycache__
+*.pyc
+migrations/

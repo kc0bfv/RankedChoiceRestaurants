@@ -1,0 +1,11 @@
+{% extends "voting/base.html" %}
+
+{% load static %}
+
+{% block body %}
+    {% for poll in polls %}
+        <div>
+            <a href="{% url 'voting:poll' poll.id %}">{{ poll.title }}</a>
+        </div>
+    {% endfor %}
+{% endblock %}
