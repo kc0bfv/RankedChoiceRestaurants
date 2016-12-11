@@ -44,6 +44,11 @@ else:
 if PRODUCTION:
     CSRF_COOKIE_SECURE = config_file_dat["CSRF_COOKIE_SECURE"]
     SESSION_COOKIE_SECURE = config_file_dat["SESSION_COOKIE_SECURE"]
+    SECURE_SSL_REDIRECT = config_file_dat["SECURE_SSL_REDIRECT"]
+
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+X_FRAME_OPTIONS = "DENY"
 
 # Application definition
 

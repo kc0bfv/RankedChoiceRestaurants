@@ -52,12 +52,19 @@ def main():
             "What port is the database on",
             default_db.get("PORT", ""))
 
+    if "mysql" in default_db["ENGINE"].lower():
+        # recommended setting for mysql...
+        default_db["OPTIONS"] = {
+                "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"}
+
     database_dict["default"] = default_db
     config_dict["DATABASES"] = database_dict
 
     config_dict["STATIC_URL"] = maybe_get_new_val(
-            "What's the url to access static files",
+            "What's the url to access static files - it must end in a /",
             config_dict.get("STATIC_URL", ""))
+    if config_dict["STATIC_URL"][-1:] != "/":
+        config_dict["STATIC_URL"] += "/"
     config_dict["STATIC_ROOT"] = maybe_get_new_val(
             "Where are static files stored on the local server",
             config_dict.get("STATIC_ROOT", ""))
@@ -67,12 +74,15 @@ def main():
     # set CSRF_COOKIE_SECURE to avoid sending csrf cookie over http
     config_dict["CSRF_COOKIE_SECURE"] = https[:1] not in ["n","N"]
     config_dict["SESSION_COOKIE_SECURE"] = https[:1] not in ["n","N"]
+    config_dict["SECURE_SSL_REDIRECT"] = https[:1] not in ["n","N"]
 
     with open(CONFIG_FILE, "w") as f:
         json.dump(config_dict, f)
 
-    print("Run './manage.py collectstatic' to place static files "\
-            "in the correct location")
+    print("Now - set PRODUCTION to True in "\
+            "RankedChoiceRestaurants/settings.py")
+    print("Then run './manage.py collectstatic' to place static files "\
+            "correctly")
 
 if __name__ == "__main__":
     main()
