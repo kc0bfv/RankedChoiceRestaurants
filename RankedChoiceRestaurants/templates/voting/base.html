@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block load_javascript %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="{% static "voting/ranked_choice.js" %}"></script>
     {% block javascript_data %}
     {% endblock %}
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="{% static "voting/ranked_choice.js" %}"></script>
 {% endblock %}

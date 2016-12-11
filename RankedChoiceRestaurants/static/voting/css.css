@@ -1,12 +1,33 @@
 /*********  Common  *********/
 #poll-title { text-align: center }
 
+.text_button {
+	color: inherit;
+	background-color: inherit;
+    border: thin solid black;
+    cursor: pointer;
+    outline: none;
+
+    font-size: 2.5em;
+	border-radius: .5em;
+    padding: .25em;
+	margin: 10px;
+    text-decoration: inherit;
+}
+.text_button:hover {
+    box-shadow: 2px 2px 5px lightgrey;
+}
+.text_button:active {
+    box-shadow: inset 2px 2px 5px lightgrey;
+}
+
 
 
 /*********  Voting page  *********/
 /* One-off formatting for specific IDs */
 #error-msg { color: red; }
-#how-to { display: none; border: thin solid black; }
+#how-to { display: none; border: thin solid black; padding: 1em; }
+#how-to > h3, #how-to > ol { margin: 0px; }
 
 /* Question box formatting */
 .poll_question {
@@ -88,24 +109,20 @@
     border: thin solid black;
 }
 
-
-/* Formatting for the submit button - make it look like other page buttons */
-input[type=submit] {
-	color: inherit;
-	background-color: inherit;
-    border: thin solid black;
-    cursor: pointer;
-
-    font-size: 2.5em;
-	border-radius: .5em;
-    padding: .25em;
-	margin: 10px;
-}
 form {
     text-align: center;
 }
 
 
 
+
+
 /*********  Results Page  *********/
 #results { display: none; border: thin solid black; }
+
+
+
+/*********  Poll splash page  *********/
+.poll_splash_content {
+    text-align: center;
+}
