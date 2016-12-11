@@ -1,4 +1,30 @@
+Dependencies:
+    Python 3 - this is 2016, so we use Python 3
+    Django - developed with 1.10
+        pip3 install django
+    mysqlclient - Only if you're using mysql as your database
+        pip3 install mysqlclient
+
 Deploying:
+    Run "./GenerateConfig.py" to generate a config file at the location specified in RankedChoiceRestaurants/settings.py
+    Change PRODUCTION to True in RankedChoiceRestaurants/settings.py
+    Run "./manage.py collectstatic" to copy all static files into the directory specified in GenerateConfig.py
+    Run "./manage.py makemigrations" voting to prime the migrations
+    Run "./manage.py migrate" to create the necessary database entries
+    Run "./manage.py createsuperuser" to create the django administration user
+    Run "./manage.py createanonymous" to create an anonymous user for non-logged-in polling
+    Run "./manage.py check --deploy" if you want to auto-check django security settings.  SECURE_HSTS_SECONDS is the only normal warning - you'd have to setup HSTS to get rid of that warning.
     
-    Run ./GenerateConfig.py to generate a config file at the location specified in RankedChoiceRestaurants/settings.py
-    Run ./manage.py collectstatic to copy all static files into the directory specified in GenerateConfig.py
+    If you're using passenger on Dreamhost, create a link to passenger_wsgi.py in your web server's directory.  Directory structure should look like:
+
+    vote.notmet.net
+    | passenger_wsgi.py
+    | ...
+     \RankedChoiceRestaurants
+      | passenger_wsgi.py
+      | README
+      |\RankedChoiceRestaurants
+      | | settings.py
+      | | ...
+      |\voting
+      | | ...

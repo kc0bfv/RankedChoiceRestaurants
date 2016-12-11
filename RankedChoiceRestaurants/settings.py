@@ -14,7 +14,8 @@ import json
 import os
 
 # A quick switch for production/dev
-PRODUCTION = False
+#PRODUCTION = False
+PRODUCTION = True
 
 # Pull in the production configuration
 CONFIG_FILE = os.path.expanduser("~/.RankedChoiceRestaurantsConfig")
