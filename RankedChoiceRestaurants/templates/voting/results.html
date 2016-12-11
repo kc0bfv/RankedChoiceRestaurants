@@ -18,7 +18,11 @@
             </div>
         </div>
     {% endfor %}
-    <h3><a href="javascript: toggle_visible_block('results');" title="Display winner calculations">Show Winner Calculation Information</a></h3>
+    <h3><a href="{% url 'voting:poll' poll_id=poll.id sticky=sticky%}">Return to poll intro</a></h3>
+    {% if not sticky %}
+        <h3><a href="{% url 'voting:index' %}">View all available polls</a></h3>
+    {% endif %}
+    <h3><a href="javascript: toggle_visible_block('results');" title="Display winner calculations">Show Poll Counting</a></h3>
     <div id="results">
         {% if poll.vote_count_method == poll.INSTANT_RUNOFF %}
             {% for question, rounds in process_info.items %}

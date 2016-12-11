@@ -5,7 +5,7 @@
 {% block body %}
     {% for poll in polls %}
         <div>
-            <a href="{% url 'voting:poll' poll.id %}">{{ poll.title }}</a>
+            <a href="{% url 'voting:poll' poll_id=poll.id sticky=sticky %}">{{ poll.title }}</a>
         </div>
     {% endfor %}
 {% endblock %}

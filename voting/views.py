@@ -129,21 +129,21 @@ def build_poll_data_structure(poll):
     return (poll_data, q_a_data)
 
 def index_view(request):
-    context = { "polls": Poll.objects.all() }
+    context = { "polls": Poll.objects.all(), "sticky": "" }
     return render(request, "voting/index.html", context)
 
-def poll_view(request, poll_id=DEFAULT_POLL):
+def poll_view(request, poll_id=DEFAULT_POLL, sticky=""):
     poll = get_object_or_404(Poll, pk = poll_id)
-    context = { "poll": poll, }
+    context = { "poll": poll, "sticky": sticky }
     return render(request, "voting/poll.html", context)
 
-def ballot_view(request, poll_id=DEFAULT_POLL, error_msg = None):
+def ballot_view(request, poll_id=DEFAULT_POLL, error_msg=None, sticky=""):
     poll = get_object_or_404(Poll, pk = poll_id)
-    context = { "poll": poll, "error_msg": error_msg,
+    context = { "poll": poll, "error_msg": error_msg, "sticky": sticky,
             "vote_count_method": poll.vote_count_module }
     return render(request, "voting/ballot.html", context)
 
-def submit_vote_view(request, poll_id):
+def submit_vote_view(request, poll_id, sticky=""):
     poll = get_object_or_404(Poll, pk = poll_id)
     # TODO: maybe user management
     user = User.objects.get(username="anonymous")
@@ -154,7 +154,8 @@ def submit_vote_view(request, poll_id):
                 for answer, int_val in yield_valid_answers(request, poll)]
         raise_InvalidAnswer_on_invalid_vote(vote_selections)
     except InvalidAnswer as e:
-        return poll_view(request, poll_id, "Invalid Selections: {}".format(e))
+        return ballot_view(request, poll_id,
+                "Invalid Selections: {}".format(e), sticky)
 
     # Everything was valid, so we'll save the vote
     with transaction.atomic():
@@ -163,12 +164,12 @@ def submit_vote_view(request, poll_id):
             vs.vote = vote # have to re-set vote because it was saved
             vs.save()
 
-    return HttpResponseRedirect(reverse("voting:thanks", args=(poll_id,)))
+    return HttpResponseRedirect(reverse("voting:thanks", kwargs={"poll_id": poll_id, "sticky": sticky}))
 
-def thanks_view(request, poll_id):
-    return results_view(request, poll_id, thanks=True)
+def thanks_view(request, poll_id, sticky=""):
+    return results_view(request, poll_id, thanks=True, sticky=sticky)
 
-def results_view(request, poll_id=DEFAULT_POLL, thanks=False):
+def results_view(request, poll_id=DEFAULT_POLL, thanks=False, sticky=""):
     poll = get_object_or_404(Poll, pk = poll_id)
 
     (poll_data, q_a_data) = build_poll_data_structure(poll)
@@ -184,6 +185,7 @@ def results_view(request, poll_id=DEFAULT_POLL, thanks=False):
             "q_a_data": q_a_data,
             "winners": winners, 
             "thanks": thanks,
+            "sticky": sticky,
             }
 
     return render(request, "voting/results.html", context)

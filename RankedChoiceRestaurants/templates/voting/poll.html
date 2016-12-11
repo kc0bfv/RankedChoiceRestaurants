@@ -5,5 +5,5 @@
 {% block body %}
     <h1 id="poll-title">{{ poll.title }}</h1>
     <p>{{ poll.desc }}</p>
-    <a href="{% url 'voting:ballot' poll.id %}">Proceed to ballot</a>
+    <a href="{% url 'voting:ballot' poll_id=poll.id sticky=sticky %}">Proceed to ballot</a>
 {% endblock %}

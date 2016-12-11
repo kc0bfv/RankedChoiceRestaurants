@@ -45,7 +45,7 @@
             {% endspaceless %}
         </div>
     {% endfor %}
-    <form action="{% url 'voting:submit_vote' poll.id %}" onsubmit="build_form();" method="post" id="form">
+    <form action="{% url 'voting:submit_vote' poll_id=poll.id sticky=sticky%}" onsubmit="build_form();" method="post" id="form">
         {% csrf_token %}
         <input type="submit">
     </form>
