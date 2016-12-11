@@ -3,7 +3,7 @@ import os
 import os.path
 
 # These next two lines are only required if your default python isn't python3
-INTERP = os.path.expanduser("~/opt/bin/python3.5")
+INTERP = os.path.expanduser("~/opt/bin/python3")
 if sys.executable != INTERP: os.execl(INTERP, INTERP, *sys.argv)
 
 sys.path.append(os.getcwd())

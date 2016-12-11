@@ -6,7 +6,7 @@ from collections import defaultdict
 from math import floor
 
 name = "Instant Runoff"
-unranked_explainder = "Any responses you leave off your ballot are counted as responses you have no opinion of."
+unranked_explainder = "Any responses you leave off your ballot are counted as responses for which you have no opinion."
 
 def resolve_vote(vote, eliminated):
     """Return the voter's top choice, except for the eliminated choices
