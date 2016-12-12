@@ -10,11 +10,10 @@
 
     font-size: 2.5em;
 	border-radius: .5em;
-    padding: .25em;
+    padding: .1em .2em .1em .25em;
 	margin: 10px;
     text-decoration: inherit;
-}
-.text_button:hover {
+
     box-shadow: 2px 2px 5px lightgrey;
 }
 .text_button:active {
@@ -26,28 +25,78 @@
 /*********  Voting page  *********/
 /* One-off formatting for specific IDs */
 #error-msg { color: red; }
-#how-to { display: none; border: thin solid black; padding: 1em; }
+#how-to {
+    display: none;
+    border: thin solid black;
+    padding: 1em;
+    border-radius: .5em;
+}
 #how-to > h3, #how-to > ol { margin: 0px; }
 
 /* Question box formatting */
 .poll_question {
-    padding: 1em; border: thin solid black;
+    padding: 1em;
+    border: thin solid black;
     border-bottom-style: none; /* prevent double-thick borders between q's */
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+.poll_question ~ .poll_question{
+    border-radius: inherit;
 }
 .poll_question:last-of-type {
     border-bottom-style: solid; /* fix-up for double-thick q border stopper */
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
 }
 
 .question_description { border-bottom: thin solid black; }
 
-/* Answer box formatting */
+/* Answer box formatting when there are items both selected and unselected*/
+.question_selected {
+    border: thin solid black;
+    border-bottom: none;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+.question_selected:not(:empty) +
+        .question_unselected .poll_answer:first-of-type {
+    border-top: thin solid black; /* add border separating selected from un */
+}
+.question_unselected {
+    border: thin solid black;
+    border-top: none;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+
+/* When no questions are selected, eliminate that border and add a top border
+ * to the unselected box */
+.question_selected:empty {
+    border: none;
+}
+.question_selected:empty + .question_unselected {
+    border-top: thin solid black;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+/* When the unselected box is empty, we still need a bottom border, so give it
+ * enough height for the radius */
+.question_unselected:empty {
+    height: .5em;
+}
+
+/* Have lines between poll_answers in the selected and unselected boxes - 
+ * note that the line between selected/unselected box is taken care of ^^^ */
 .poll_answer {
-    padding: 1em; border: thin solid black;
+    padding: 1em;
+    border:none;
+    border-bottom: thin solid black;
     overflow: scroll; /* let users scroll to buttons when screen is small */
-    border-bottom-style: none; /* prevent double-thick borders between a's */
 }
 .poll_answer:last-of-type {
-    border-bottom-style: solid; /* fix-up for double-thick a border stopper */
+    border-bottom: none;
 }
 .poll_answer > div {
     display: inline-block; /* float any div that's child to the answer box */
@@ -82,6 +131,10 @@
     font-weight: bold;
     color: inherit;
     text-decoration: inherit;
+    text-shadow: 2px 2px 5px lightgrey;
+}
+.poll_move_up:active, .poll_move_down:active, .poll_move_remove:active, .poll_move_add:active{
+    text-shadow: none;
 }
 
 /* This is separate so the how-to instructions can have small "buttons" */
@@ -118,7 +171,21 @@ form {
 
 
 /*********  Results Page  *********/
-#results { display: none; border: thin solid black; }
+#results {
+    display: none;
+}
+.result_question {
+    padding: 1em;
+    border: thin solid black;
+    border-radius: .5em;
+}
+.result_question > h2 { margin-top: 0px; }
+.winner_question {
+    border: thin solid black;
+    padding: 1em;
+    border-radius: .5em;
+}
+.winner_question > h2 { margin-top: 0px; }
 
 
 
