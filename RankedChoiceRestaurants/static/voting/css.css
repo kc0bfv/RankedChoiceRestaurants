@@ -93,7 +93,7 @@
     padding: 1em;
     border:none;
     border-bottom: thin solid black;
-    overflow: scroll; /* let users scroll to buttons when screen is small */
+    overflow: auto; /* let users scroll to buttons when screen is small */
 }
 .poll_answer:last-of-type {
     border-bottom: none;
