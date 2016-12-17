@@ -13,30 +13,33 @@
     </script>
 {% endblock %}
 
+{% block title%}Ballot - {{ poll.title }}{% endblock %}
+{% block header_title %}Ballot - {{ poll.title }}{% endblock %}
+
 {% block body %}
-    <h1 id="poll-title">{{ poll.title }}</h1>
-    {% if error_msg %}<h2 id="error-msg">{{ error_msg }}</h2>{% endif %}
+    {% if error_msg %}<div id="error-msg">{{ error_msg }}</div>{% endif %}
 
     {% include "voting/how_to.html" %}
 
     {% for question in poll.question_set.all %}
         <div class="poll_question" id="question-{{ question.id }}">
-            <h2 class="question_description">{{ question.desc }}</h2>
+            <div class="question_description">{{ question.desc }}</div>
             <div class="question_selected" id="question-selected-{{ question.id }}"></div>
             {% spaceless %}
                 <div class="question_unselected" id="question-unselected-{{ question.id }}">
                     {% for answer in question.answer_set.all|shuffle %}
                     <div class="poll_answer" id="answer-{{ answer.id }}">
-                        <div class="poll_answer_rank" id="rank-answer-{{ answer.id }}">
-                            &nbsp;
+                        <div>
+                            <a href="javascript: sel_unsel('{{ answer.id }}', '{{ question.id }}');" class="poll_move_add only_when_unsel" title="Add option to ballot">&#9745;</a>
+                            <div class="poll_answer_rank only_when_sel" id="rank-answer-{{ answer.id }}">&nbsp;</div>
                         </div>
+                        <div class="poll_answer_desc">{{ answer.desc }}</div>
                         <div class="poll_answer_desc_btns">
-                            <h4>{{ answer.desc }}</h4>
                             <div class="button_box">
                                 <a href="javascript: move_up('{{ answer.id }}', '{{ question.id }}');" class="poll_move_up only_when_sel" title="Rank option higher">&#8679;</a>&nbsp;
                                 <a href="javascript: move_down('{{ answer.id }}', '{{ question.id }}');" class="poll_move_down only_when_sel" title="Rank option lower">&#8681;</a>&nbsp;
                                 <a href="javascript: sel_unsel('{{ answer.id }}', '{{ question.id }}');" class="poll_move_remove only_when_sel" title="Remove option from ballot">&#9746;</a>
-                                <a href="javascript: sel_unsel('{{ answer.id }}', '{{ question.id }}');" class="poll_move_add only_when_unsel" title="Add option to ballot">&#9745;</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -47,6 +50,8 @@
     {% endfor %}
     <form action="{% url 'voting:submit_vote' poll_id=poll.id sticky=sticky%}" onsubmit="build_form();" method="post" id="form">
         {% csrf_token %}
-        <input type="submit" class="text_button">
+        <div class="text_button_surround">
+            <input type="submit" class="text_button">
+        </div>
     </form>
 {% endblock %}

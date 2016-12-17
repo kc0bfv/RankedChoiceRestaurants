@@ -2,10 +2,12 @@
 
 {% load static %}
 
+{% block title%}{{ poll.title }}{% endblock %}
+{% block header_title %}{{ poll.title }}{% endblock %}
+
 {% block body %}
-    <h1 id="poll-title">{{ poll.title }}</h1>
     <div class="poll_splash_content">
-        <p>{{ poll.desc }}</p>
-        <a class="text_button" href="{% url 'voting:ballot' poll_id=poll.id sticky=sticky %}">Proceed to ballot</a>
+        <div id="poll-desc">{{ poll.desc }}</div>
+        <div class="text_button_surround"><a class="text_button" href="{% url 'voting:ballot' poll_id=poll.id sticky=sticky %}">Proceed to Ballot</a></div>
     </div>
 {% endblock %}

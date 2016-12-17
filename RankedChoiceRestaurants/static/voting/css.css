@@ -1,37 +1,91 @@
 /*********  Common  *********/
-#poll-title { text-align: center }
+@media (max-width: 530px) {
+    body {
+        width: 530px;
+    }
+}
+body {
+    /* Background pattern from subtlepatterns.com */
+    background-image: url("cork-wallet.png");
+    margin: 0px;
+    color: rgb(44,45,47);
+}
 
-.text_button {
+#page-header {
+    text-align: left;
+    font-size: 1.75em;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, .5);
+
+    margin: 0px;
+    padding: .75em;
+    padding-top: 1.5em;
+}
+#body-margined {
+    margin: 12px;
+}
+
+.middle_column {
+    width: 75%;
+    margin: 0 auto;
+}
+@media (min-width: 900px) {
+    /* this must be after the default so it overrides it when active
+     * @media doesn't add any specificity, so the order matters */
+    .middle_column {
+        width: 675px;
+    }
+}
+
+.text_button, .small_text_button {
 	color: inherit;
 	background-color: inherit;
     border: thin solid black;
     cursor: pointer;
     outline: none;
 
-    font-size: 2.5em;
 	border-radius: .5em;
     padding: .1em .2em .1em .25em;
-	margin: 10px;
     text-decoration: inherit;
 
     box-shadow: 2px 2px 5px lightgrey;
 }
-.text_button:active {
+.text_button:active, .small_text_button:active {
     box-shadow: inset 2px 2px 5px lightgrey;
+}
+.text_button {
+    font-size: 2em;
+}
+.small_text_button {
+    font-size: 1.25em;
+}
+.text_button_surround {
+    margin: 5px 0px;
+    padding: 5px 0px;
+}
+
+ol {
+    list-style-position: inside;
+    padding:0px;
 }
 
 
 
 /*********  Voting page  *********/
 /* One-off formatting for specific IDs */
-#error-msg { color: red; }
+#error-msg { 
+    font-size: 1.5em;
+    font-weight: bold;
+    color: red;
+}
 #how-to {
     display: none;
     border: thin solid black;
     padding: 1em;
     border-radius: .5em;
 }
-#how-to > h3, #how-to > ol { margin: 0px; }
+#vcm-header { font-size: 1.25em; font-weight: bold; }
+#instructions-list { font-size: 1em; margin: 0px; }
 
 /* Question box formatting */
 .poll_question {
@@ -50,7 +104,11 @@
     border-bottom-right-radius: .5em;
 }
 
-.question_description { border-bottom: thin solid black; }
+.question_description {
+    font-size: 1.5em;
+    font-weight: bold;
+    /*border-bottom: thin solid black;*/
+}
 
 /* Answer box formatting when there are items both selected and unselected*/
 .question_selected {
@@ -101,6 +159,12 @@
 .poll_answer > div {
     display: inline-block; /* float any div that's child to the answer box */
     vertical-align: middle;
+}
+.poll_answer > .poll_answer_desc_btns {
+    display: block; /* except, put the buttons on their own line */
+}
+.poll_answer_desc {
+    font-size: 1.25em;
 }
 
 /* Make certain things visible only when they're on the ballot,
@@ -168,28 +232,46 @@ form {
 
 
 
-
-
 /*********  Results Page  *********/
 #results {
     display: none;
+}
+#thank-you {
+    font-size: 1.75em;
+    font-weight: bold;
 }
 .result_question {
     padding: 1em;
     border: thin solid black;
     border-radius: .5em;
 }
-.result_question > h2 { margin-top: 0px; }
+.result_round_num {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin-top: 1em;
+}
+.result_answer {
+    font-size: 1em;
+    margin: 5px 0px;
+}
 .winner_question {
     border: thin solid black;
     padding: 1em;
     border-radius: .5em;
 }
-.winner_question > h2 { margin-top: 0px; }
+.winner_answer {
+    font-size: 1.5em;
+}
+.underline {
+    border-bottom: thin solid black;
+}
 
 
 
 /*********  Poll splash page  *********/
 .poll_splash_content {
     text-align: center;
+}
+#poll-desc {
+    font-size: 1.25em;
 }

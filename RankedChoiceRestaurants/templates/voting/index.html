@@ -3,9 +3,10 @@
 {% load static %}
 
 {% block body %}
+    <div>
+        The following polls are available:
+    </div>
     {% for poll in polls %}
-        <div>
-            <a href="{% url 'voting:poll' poll_id=poll.id sticky=sticky %}">{{ poll.title }}</a>
-        </div>
+        <div class="text_button_surround"><a class="small_text_button" href="{% url 'voting:poll' poll_id=poll.id sticky=sticky %}">{{ poll.title }}</a></div>
     {% endfor %}
 {% endblock %}

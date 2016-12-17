@@ -2,38 +2,40 @@
 
 {% load customtags %}
 
+{% block title%}Results - {{ poll.title }}{% endblock %}
+{% block header_title %}Results - {{ poll.title }}{% endblock %}
+
 {% block body %}
-    <h1 id="poll-title">{{ poll.title }} - Results</h1>
-    {% if thanks %}<h2 id="thank-you">Thank you for voting!</h2>{% endif %}
+    {% if thanks %}<div id="thank-you">Thank you for voting!</div>{% endif %}
 
     {% for question, question_winners in winners.items %}
         <div class="winner_question">
-            <h2>{{ question.desc }}</h2>
+            <div class="question_description underline">{{ question.desc }}</div>
             <div class="winner_answer">
-            {% for winner in question_winners %}
-                {{ winner.desc }}
-            {% empty %}
-                Unfortunately, not enough results for a winner
-            {% endfor %}
+                {% for winner in question_winners %}
+                    {{ winner.desc }}
+                {% empty %}
+                    Unfortunately, not enough results for a winner
+                {% endfor %}
             </div>
         </div>
     {% endfor %}
-    <h3><a href="{% url 'voting:poll' poll_id=poll.id sticky=sticky%}">Return to poll intro</a></h3>
+    <div class="text_button_surround"><a class="small_text_button" href="{% url 'voting:poll' poll_id=poll.id sticky=sticky%}">Return to Poll Introduction</a></div>
     {% if not sticky %}
-        <h3><a href="{% url 'voting:index' %}">View all available polls</a></h3>
+        <div class="text_button_surround"><a class="small_text_button" href="{% url 'voting:index' %}">View All Available Polls</a></div>
     {% endif %}
-    <h3><a href="javascript: toggle_visible_block('results');" title="Display winner calculations">Show Poll Counting</a></h3>
+    <div class="text_button_surround"><a class="small_text_button" href="javascript: toggle_visible_block('results');" title="Display winner calculations">Show Poll Counting</a></div>
     <div id="results">
         {% if poll.vote_count_method == poll.INSTANT_RUNOFF %}
             {% for question, rounds in process_info.items %}
                 <div class="result_question">
-                    <h2>{{ question.desc }}</h2>
+                    <div class="question_description underline">{{ question.desc }}</div>
                     {% for round in rounds %}
                         <div class="result_round">
-                            <h3>Round {{ forloop.counter }}</h3>
+                            <div class="result_round_num">Round {{ forloop.counter }}</div>
                             {% for answer, votes in round.items %}
                                 <div class="result_answer">
-                                    {{ answer.desc }} - {{ votes }}
+                                    {{ answer.desc }} - {{ votes }} vote{% if votes != 1%}s{% endif %}
                                 </div>
                             {% endfor %}
                         </div>

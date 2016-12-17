@@ -3,6 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="description" content="A prototype voting application for reader's choice awards, employing a fairer voting system called Ranked Choice Voting">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="icon" href="favicon.ico"> <!-- favicon... -->
     
@@ -15,7 +16,17 @@
     <title>{% block title %}Reader's Choice Restaurants{% endblock %}</title>
 </head>
 <body>
-        {% block body %}
-        {% endblock %}
+    <div id="page-header">
+        <div class="middle_column">
+            {% block header_title %}Reader's Choice Restaurants{% endblock %}
+        </div>
+    </div>
+
+    <div id="body-margined">
+        <div class="middle_column">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
 </body>
 </html>
