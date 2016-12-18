@@ -1,14 +1,23 @@
 /*********  Common  *********/
-@media (max-width: 530px) {
+@media (max-width: 320px) {
+    /* Users - like mobile users - with views smaller than 320px will
+     * have to scroll/zoom */
     body {
-        width: 530px;
+        width: 320px;
+    }
+}
+@media (max-width: 450px) {
+    /* Most text is set to larger-than default - in smaller viewports this
+     * will shrink the overall text size */
+    body {
+        font-size: 10px;
     }
 }
 body {
     /* Background pattern from subtlepatterns.com */
     background-image: url("cork-wallet.png");
     margin: 0px;
-    color: rgb(44,45,47);
+    color: #082a54;
 }
 
 #page-header {
@@ -28,6 +37,11 @@ body {
 .middle_column {
     width: 75%;
     margin: 0 auto;
+}
+@media (max-width: 450px) {
+    .middle_column {
+        width: 90%;
+    }
 }
 @media (min-width: 900px) {
     /* this must be after the default so it overrides it when active
