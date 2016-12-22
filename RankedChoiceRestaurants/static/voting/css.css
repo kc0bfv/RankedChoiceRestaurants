@@ -244,6 +244,17 @@ form {
     text-align: center;
 }
 
+.tutorial_child {
+    text-align: center;
+    font-size: .8em;
+    padding: 5px;
+    border: thin solid black;
+    border-radius: .5em;
+    background-color: white;
+    position: absolute;
+    z-index: 100;
+}
+
 
 
 /*********  Results Page  *********/
