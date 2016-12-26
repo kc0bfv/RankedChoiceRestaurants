@@ -21,34 +21,42 @@
 
     {% include "voting/how_to.html" %}
 
-    {% for question in poll.question_set.all %}
-        <div class="poll_question" id="question-{{ question.id }}">
-            <div class="question_description">{{ question.desc }}</div>
-            <div class="question_selected" id="question-selected-{{ question.id }}"></div>
-            {% spaceless %}
-                <div class="question_unselected" id="question-unselected-{{ question.id }}">
-                    {% for answer in question.answer_set.all|shuffle %}
-                    <div class="poll_answer" id="answer-{{ answer.id }}">
-                        <div>
-                            <a href="javascript: sel_unsel('{{ answer.id }}', '{{ question.id }}');" class="poll_move_add only_when_unsel" title="Add option to ballot">&#9745;</a>
-                            <div class="poll_answer_rank only_when_sel" id="rank-answer-{{ answer.id }}">&nbsp;</div>
-                        </div>
-                        <div class="poll_answer_desc">{{ answer.desc }}</div>
-                        <div class="poll_answer_desc_btns">
-                            <div class="button_box">
-                                <a href="javascript: move_up('{{ answer.id }}', '{{ question.id }}');" class="poll_move_up only_when_sel" title="Rank option higher">&#8679;</a>&nbsp;
-                                <a href="javascript: move_down('{{ answer.id }}', '{{ question.id }}');" class="poll_move_down only_when_sel" title="Rank option lower">&#8681;</a>&nbsp;
-                                <a href="javascript: sel_unsel('{{ answer.id }}', '{{ question.id }}');" class="poll_move_remove only_when_sel" title="Remove option from ballot">&#9746;</a>
-                                
+    <div id="polling-box">
+        {% for question in poll.question_set.all %}
+            <div class="poll_question" id="question-{{ question.id }}">
+                <div class="question_description" id="question-desc-{{ question.id }}">{{ question.desc }}</div>
+                <div class="question_selected" id="question-selected-{{ question.id }}"></div>
+                {% spaceless %}
+                    <div class="question_unselected" id="question-unselected-{{ question.id }}">
+                        {% for answer in question.answer_set.all|shuffle %}
+                        <div class="poll_answer" id="answer-{{ answer.id }}">
+                            <div>
+                                <a href="javascript: sel_unsel('{{ answer.id }}', '{{ question.id }}');" class="poll_move_add only_when_unsel" title="Add option to ballot">&#9745;</a>
+                                <div class="poll_answer_rank only_when_sel" id="rank-answer-{{ answer.id }}">&nbsp;</div>
+                            </div>
+                            <div class="poll_answer_desc" id="desc-answer-{{ answer.id }}">{{ answer.desc }}</div>
+                            <div class="poll_answer_desc_btns">
+                                <div class="button_box">
+                                    <a href="javascript: move_up('{{ answer.id }}', '{{ question.id }}');" class="poll_move_up only_when_sel" title="Rank option higher">&#8679;</a>&nbsp;
+                                    <a href="javascript: move_down('{{ answer.id }}', '{{ question.id }}');" class="poll_move_down only_when_sel" title="Rank option lower">&#8681;</a>&nbsp;
+                                    <a href="javascript: sel_unsel('{{ answer.id }}', '{{ question.id }}');" class="poll_move_remove only_when_sel" title="Remove option from ballot">&#9746;</a>
+                                    
+                                </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-            {% endspaceless %}
-        </div>
-    {% endfor %}
-    <form action="{% url 'voting:submit_vote' poll_id=poll.id sticky=sticky%}" onsubmit="build_form();" method="post" id="form">
+                {% endspaceless %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="text_button_surround" id="check-ballot-btn"><a href="javascript: validate_ballot();" class="text_button">Check Ballot</a></div>
+    <div id="verify-ballot-area">
+        <div id="verify-ballot-hdr">Verify Your Ballot:</div>
+        <div id="verify-ballot-div-area"></div>
+    </div>
+    <form action="{% url 'voting:submit_vote' poll_id=poll.id sticky=sticky%}" method="post" id="form">
+        <div id="constructed-form-entries"></div>
         {% csrf_token %}
         <div class="text_button_surround">
             <input type="submit" class="text_button">

@@ -98,6 +98,22 @@ ol {
     padding: 1em;
     border-radius: .5em;
 }
+#verify-ballot-area {
+    display: none;
+    border: thin solid black;
+    padding: 1em;
+    border-radius: .5em;
+}
+#verify-ballot-hdr {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+#check-ballot-btn {
+    text-align: center;
+}
+#form {
+    display: none;
+}
 #vcm-header { font-size: 1.25em; font-weight: bold; }
 #instructions-list { font-size: 1em; margin: 0px; }
 
@@ -112,7 +128,7 @@ ol {
 .poll_question ~ .poll_question{
     border-radius: inherit;
 }
-.poll_question:last-of-type {
+.poll_question:last-child {
     border-bottom-style: solid; /* fix-up for double-thick q border stopper */
     border-bottom-left-radius: .5em;
     border-bottom-right-radius: .5em;
