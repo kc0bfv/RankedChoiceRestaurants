@@ -1,4 +1,8 @@
 /*********  Common  *********/
+html {
+    height: 100%;
+}
+
 @media (max-width: 320px) {
     /* Users - like mobile users - with views smaller than 320px will
      * have to scroll/zoom */
@@ -15,29 +19,43 @@
 }
 body {
     /* Background pattern from subtlepatterns.com */
-    background-image: url("cork-wallet.png");
+    font-family: sans-serif;
+    /*background-color: #c5c1c0;*/
+    background-color: #1a2930;
     margin: 0px;
-    color: #082a54;
+    color: #fef9e7;
+    height: 100%;
 }
 
 #page-header {
     text-align: left;
     font-size: 1.75em;
     font-weight: bold;
-    background-color: rgba(255, 255, 255, .5);
 
     margin: 0px;
-    padding: .75em;
-    padding-top: 1.5em;
+    background-color: #141f24;
 }
 #body-margined {
-    margin: 12px;
+    margin: 0px;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .middle_column {
+    overflow: auto;
     width: 75%;
+    height: 100%;
     margin: 0 auto;
+    padding: 20px;
 }
+#body-margined .middle_column {
+    background-color: #1a2930;
+}
+#page-header .middle_column {
+    padding: .75em;
+    padding-top: 1.5em;
+}
+
 @media (max-width: 450px) {
     .middle_column {
         width: 90%;
@@ -54,7 +72,7 @@ body {
 .text_button, .small_text_button {
 	color: inherit;
 	background-color: inherit;
-    border: thin solid black;
+    border: thin solid #fef9e7;
     cursor: pointer;
     outline: none;
 
@@ -62,7 +80,7 @@ body {
     padding: .1em .2em .1em .25em;
     text-decoration: inherit;
 
-    box-shadow: 2px 2px 5px lightgrey;
+    /*box-shadow: 2px 2px 5px lightgrey;*/
 }
 .text_button:active, .small_text_button:active {
     box-shadow: inset 2px 2px 5px lightgrey;
@@ -94,15 +112,14 @@ ol {
 }
 #how-to {
     display: none;
-    border: thin solid black;
+    border: thin solid #f7ce3e;
     padding: 1em;
-    border-radius: .5em;
+    margin: 1em;
 }
 #verify-ballot-area {
     display: none;
-    border: thin solid black;
     padding: 1em;
-    border-radius: .5em;
+    margin: 1em;
 }
 #verify-ballot-hdr {
     font-size: 1.5em;
@@ -120,81 +137,59 @@ ol {
 /* Question box formatting */
 .poll_question {
     padding: 1em;
-    border: thin solid black;
-    border-bottom-style: none; /* prevent double-thick borders between q's */
-    border-top-left-radius: .5em;
-    border-top-right-radius: .5em;
+    background-color: #1a2930;
+    border: thin solid #f7ce3e;
+    margin-top: .5em;
+    margin-bottom: .5em;
+
+    margin-left: -10px;
+    margin-right: 10px;
 }
-.poll_question ~ .poll_question{
-    border-radius: inherit;
-}
-.poll_question:last-child {
-    border-bottom-style: solid; /* fix-up for double-thick q border stopper */
-    border-bottom-left-radius: .5em;
-    border-bottom-right-radius: .5em;
+.poll_question:nth-of-type(odd) {
+    margin-left: 10px;
+    margin-right: -10px;
 }
 
 .question_description {
     font-size: 1.5em;
     font-weight: bold;
-    /*border-bottom: thin solid black;*/
 }
 
 /* Answer box formatting when there are items both selected and unselected*/
-.question_selected {
-    border: thin solid black;
-    border-bottom: none;
-    border-top-left-radius: .5em;
-    border-top-right-radius: .5em;
+.question_selected, .question_unselected{
+    margin: .5em;
+    min-height: 2.5em;
+    border-left: thick solid #f8f7f7;
 }
-.question_selected:not(:empty) +
-        .question_unselected .poll_answer:first-of-type {
-    border-top: thin solid black; /* add border separating selected from un */
-}
-.question_unselected {
-    border: thin solid black;
-    border-top: none;
-    border-bottom-left-radius: .5em;
-    border-bottom-right-radius: .5em;
-}
-
-/* When no questions are selected, eliminate that border and add a top border
- * to the unselected box */
-.question_selected:empty {
-    border: none;
-}
-.question_selected:empty + .question_unselected {
-    border-top: thin solid black;
-    border-top-left-radius: .5em;
-    border-top-right-radius: .5em;
-}
-
-/* When the unselected box is empty, we still need a bottom border, so give it
- * enough height for the radius */
-.question_unselected:empty {
-    height: .5em;
+.question_resp_header {
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: bold;
+    border-bottom: thin solid #f7ce3e;
 }
 
 /* Have lines between poll_answers in the selected and unselected boxes - 
  * note that the line between selected/unselected box is taken care of ^^^ */
-.poll_answer {
+.poll_answer, .poll_answer_placeholder {
     padding: 1em;
     border:none;
-    border-bottom: thin solid black;
-    overflow: auto; /* let users scroll to buttons when screen is small */
 }
-.poll_answer:last-of-type {
+.poll_answer_placeholder {
+    min-height: 3em;
+}
+.poll_answer:last-of-type, .poll_answer_placeholder:last-of-type, .poll_answer.ui-sortable-helper {
     border-bottom: none;
 }
 .poll_answer > div {
     display: inline-block; /* float any div that's child to the answer box */
     vertical-align: middle;
 }
-.poll_answer > .poll_answer_desc_btns {
-    display: block; /* except, put the buttons on their own line */
-}
 .poll_answer_desc {
     font-size: 1.25em;
+    font-weight: lighter;
+}
+.poll_answer_desc, .poll_answer_rank {
+    color: #f8f7f7;
 }
 
 /* Make certain things visible only when they're on the ballot,
@@ -213,38 +208,6 @@ ol {
         display: none;
 }
 
-/* Formatting for the answer-maneuvering buttons */
-.button_box {
-    word-spacing: 1em; /* make some non-clickable space between buttons */
-    white-space: nowrap; /* don't wrap the buttons, prefer enabling scroll */
-}
-
-.poll_move_up, .poll_move_down, .poll_move_remove, .poll_move_add,
-.poll_move_small {
-    font-family: helvetica;
-    font-weight: bold;
-    color: inherit;
-    text-decoration: inherit;
-    text-shadow: 2px 2px 5px lightgrey;
-}
-.poll_move_up:active, .poll_move_down:active, .poll_move_remove:active, .poll_move_add:active{
-    text-shadow: none;
-}
-
-/* This is separate so the how-to instructions can have small "buttons" */
-.poll_move_up, .poll_move_down, .poll_move_remove, .poll_move_add {
-    font-size: 5em;
-    word-spacing: 1em;
-}
-
-/* Hide some buttons when items are at top/bottom of list */
-.poll_answer:first-of-type .poll_move_up {
-    visibility: hidden;
-}
-.poll_answer:last-of-type .poll_move_down {
-    visibility: hidden;
-}
-
 /* Formatting for the answer ranking box */
 .poll_answer_rank {
     font-size: 5em;
@@ -253,7 +216,6 @@ ol {
     font-weight: bold;
     padding: 10px;
     margin: 10px;
-    /*border: thin solid black;*/
 }
 
 form {
@@ -264,9 +226,8 @@ form {
     text-align: center;
     font-size: .8em;
     padding: 5px;
-    border: thin solid black;
     border-radius: .5em;
-    background-color: white;
+    background-color: #141f24;
     position: absolute;
     z-index: 100;
 }
@@ -283,8 +244,9 @@ form {
 }
 .result_question {
     padding: 1em;
-    border: thin solid black;
-    border-radius: .5em;
+    border: thin solid #f7ce3e;
+    margin-top: .5em;
+    margin-bottom: .5em;
 }
 .result_round_num {
     font-size: 1.25em;
@@ -294,17 +256,20 @@ form {
 .result_answer {
     font-size: 1em;
     margin: 5px 0px;
+    color: #f8f7f7;
 }
 .winner_question {
-    border: thin solid black;
+    border: thin solid #f7ce3e;
     padding: 1em;
-    border-radius: .5em;
+    margin-top: .5em;
+    margin-bottom: .5em;
 }
 .winner_answer {
     font-size: 1.5em;
+    color: #f8f7f7;
 }
 .underline {
-    border-bottom: thin solid black;
+    /*border-bottom: thin solid #f7ce3e;*/
 }
 
 
