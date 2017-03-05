@@ -4,6 +4,9 @@
 
 {% block load_css %}
     <link rel="stylesheet" href="{% static "voting/css.css" %}" type="text/css">
+    {% if poll and poll.custom_stylesheet %}
+        <link rel="stylesheet" href="{% static "voting/"|add:poll.custom_stylesheet %}" type="text/css">
+    {% endif %}
 {% endblock %}
 
 {% block load_javascript %}

@@ -72,6 +72,7 @@ body {
 .text_button, .small_text_button {
 	color: inherit;
 	background-color: inherit;
+    background-image: none;
     border: thin solid #fef9e7;
     cursor: pointer;
     outline: none;
@@ -172,7 +173,8 @@ ol {
  * note that the line between selected/unselected box is taken care of ^^^ */
 .poll_answer, .poll_answer_placeholder {
     padding: 1em;
-    border:none;
+    border: none;
+    cursor: pointer;
 }
 .poll_answer_placeholder {
     min-height: 3em;
@@ -257,6 +259,7 @@ form {
     font-size: 1em;
     margin: 5px 0px;
     color: #f8f7f7;
+    position: relative;
 }
 .winner_question {
     border: thin solid #f7ce3e;
@@ -272,6 +275,22 @@ form {
     /*border-bottom: thin solid #f7ce3e;*/
 }
 
+.bar_graph_bar {
+    border: thick solid #f7ce3e;
+    padding: .2em;
+    box-sizing: border-box;
+}
+
+.result_answer::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    right: 100%;
+    border-left: 2px dashed #c0392b;
+}
 
 
 /*********  Poll splash page  *********/

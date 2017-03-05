@@ -178,6 +178,14 @@ def results_view(request, poll_id=DEFAULT_POLL, thanks=False, sticky=""):
     (winners, process_info) = poll.vote_count_module.count_poll(
             poll_data, q_a_data)
 
+    # Calculate percentages for bar graph
+    percents = defaultdict(dict)
+    for question, rounds in process_info.items():
+        for ind, round_i in enumerate(rounds):
+            tot_votes = sum(round_i.values())
+            for answer, votes in round_i.items():
+                percents[ind][answer] = int(100 * (float(votes)/tot_votes))
+
     context = {
             "poll": poll,
             "process_info": process_info,
@@ -186,6 +194,7 @@ def results_view(request, poll_id=DEFAULT_POLL, thanks=False, sticky=""):
             "winners": winners, 
             "thanks": thanks,
             "sticky": sticky,
+            "percents": percents,
             }
 
     return render(request, "voting/results.html", context)

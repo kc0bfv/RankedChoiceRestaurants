@@ -35,7 +35,8 @@
                             <div class="result_round_num">Round {{ forloop.counter }}</div>
                             {% for answer, votes in round.items %}
                                 <div class="result_answer">
-                                    {{ answer.desc }} - {{ votes }} vote{% if votes != 1%}s{% endif %}
+                                    {{ answer.desc }}
+                                    <div class="bar_graph_bar" style="width: {{ percents|returnitem:forloop.parentloop.counter0|returnitem:answer }}%">{{ votes }} vote{% if votes != 1%}s{% endif %} - {{ percents|returnitem:forloop.parentloop.counter0|returnitem:answer }}%</div>
                                 </div>
                             {% endfor %}
                         </div>

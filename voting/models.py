@@ -25,6 +25,7 @@ class Poll(models.Model):
     desc = models.TextField(default="")
     vote_count_method = models.SmallIntegerField(default=INSTANT_RUNOFF,
             choices=VOTE_COUNT_CHOICES)
+    custom_stylesheet = models.TextField(blank=True, default="")
 
     @property
     def vote_count_module(self):
