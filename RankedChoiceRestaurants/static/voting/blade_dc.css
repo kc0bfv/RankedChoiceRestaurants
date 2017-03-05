@@ -1,0 +1,29 @@
+body {
+    font-family: 'Playfair Display', serif;
+}
+
+body, #body-margined .middle_column, .poll_question, .tutorial_child {
+    background-color: #ffffff;
+}
+
+body, .result_answer, .winner_answer, .poll_answer_desc, .poll_answer_rank {
+    color: #333333;
+}
+
+#page-header {
+    background-color: #686868;
+    color: #ffffff;
+}
+
+.text_button, .small_text_button, .question_selected, .question_unselected,
+.question_resp_header, .poll_question, #how-to, .result_question,
+.winner_question, .bar_graph_bar {
+    border-color: #333333;
+}
+
+.poll_answer_desc, .poll_answer_rank {
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+
