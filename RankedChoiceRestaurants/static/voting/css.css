@@ -260,6 +260,8 @@ form {
     margin: 5px 0px;
     color: #f8f7f7;
     position: relative;
+    overflow: visible;
+    white-space: nowrap;
 }
 .winner_question {
     border: thin solid #f7ce3e;
