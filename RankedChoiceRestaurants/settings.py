@@ -13,12 +13,13 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import json
 import os
 
+from RankedChoiceRestaurants.config_file_path import CONFIG_FILE
+
 # A quick switch for production/dev
 #PRODUCTION = False
 PRODUCTION = True
 
 # Pull in the production configuration
-CONFIG_FILE = os.path.expanduser("~/.RankedChoiceRestaurantsConfig")
 if PRODUCTION:
     config_file_dat = json.load(open(CONFIG_FILE, "r"))
 

@@ -5,7 +5,7 @@ import os
 import random
 import string
 
-from RankedChoiceRestaurants.settings import CONFIG_FILE
+from RankedChoiceRestaurants.config_file_path import CONFIG_FILE
 
 def maybe_get_new_val(query, old_val):
     new_val = input("{}? [{}] ".format(query, old_val))

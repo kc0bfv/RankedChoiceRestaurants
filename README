@@ -5,6 +5,9 @@ Dependencies:
     mysqlclient - Only if you're using mysql as your database
         pip3 install mysqlclient
 
+# For Testing
+Set PRODUCTION to False in RankedChoiceRestaurants/settings.py
+
 Deploying:
     Run "./GenerateConfig.py" to generate a config file at the location specified in RankedChoiceRestaurants/settings.py
     Change PRODUCTION to True in RankedChoiceRestaurants/settings.py
