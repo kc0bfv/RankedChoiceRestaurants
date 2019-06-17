@@ -40,7 +40,7 @@ class Question(models.Model):
     poll - Poll - the poll this question belongs to
     desc - string - the text of the question
     """
-    poll = models.ForeignKey(Poll)
+    poll = models.ForeignKey(Poll, models.CASCADE)
     desc = models.TextField()
 
     def __str__(self):
@@ -52,7 +52,7 @@ class Answer(models.Model):
     question - Question - the question that this is an answer to
     desc - string - the text of the response
     """
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, models.CASCADE)
     desc = models.TextField()
 
     def __str__(self):
@@ -66,9 +66,9 @@ class Vote(models.Model):
     time - DateTimeField - the time this vote was cast
     poll - Poll - the poll this is a vote for
     """
-    user = models.ForeignKey(User) # TODO: implement this usefully later on
+    user = models.ForeignKey(User, models.CASCADE) # TODO: implement this usefully later on
     time = models.DateTimeField(auto_now=True)
-    poll = models.ForeignKey(Poll)
+    poll = models.ForeignKey(Poll, models.CASCADE)
 
     def __str__(self):
         return "{} - {}".format(self.user, self.poll)
@@ -95,8 +95,8 @@ class VoteSelection(models.Model):
         "first choice".  This may prove to be unwise on my part, but we're
         gonna go with it for now.  It's an error to have a 0'th ranking.
     """
-    vote = models.ForeignKey(Vote)
-    answer = models.ForeignKey(Answer)
+    vote = models.ForeignKey(Vote, models.CASCADE)
+    answer = models.ForeignKey(Answer, models.CASCADE)
     ranking = models.IntegerField()
 
     def __str__(self):
